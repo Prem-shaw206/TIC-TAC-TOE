@@ -1,0 +1,292 @@
+
+/* ===== GLOBAL RESET ===== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --blue: #35c8ff;
+    --pink: #ff5ca8;
+    --bg: #080d18;
+    --panel: #131e30;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(circle at 20% 20%, #173b59 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, #401b46 0%, transparent 40%),
+        #080d18;
+
+    color: white;
+    padding: 20px;
+}
+
+/* ===== MAIN GAME CONTAINER ===== */
+
+.container {
+    width: 100%;
+    max-width: 650px;
+
+    padding: 35px;
+
+    background: rgba(19, 30, 48, 0.88);
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.6),
+        inset 0 1px 1px rgba(255,255,255,0.08);
+
+    backdrop-filter: blur(20px);
+
+    text-align: center;
+}
+
+/* ===== TITLE ===== */
+
+h1 {
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+
+    background: linear-gradient(
+        90deg,
+        #35c8ff,
+        #ffffff,
+        #ff5ca8
+    );
+
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 17px;
+    color: #aabbd0;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+/* ===== GAME BOARD ===== */
+
+.game {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 14px;
+
+    width: 100%;
+    max-width: 390px;
+
+    margin: 25px auto;
+
+    padding: 15px;
+
+    background: linear-gradient(
+        145deg,
+        #1b2c43,
+        #0a1220
+    );
+
+    border-radius: 22px;
+
+    box-shadow:
+        12px 12px 25px rgba(0,0,0,0.5),
+        -5px -5px 15px rgba(255,255,255,0.03);
+}
+
+/* ===== GAME CELLS ===== */
+
+.cell {
+    aspect-ratio: 1 / 1;
+
+    width: 100%;
+
+    border: 1px solid rgba(255,255,255,0.07);
+
+    border-radius: 16px;
+
+    background: linear-gradient(
+        145deg,
+        #1d2c42,
+        #101a2b
+    );
+
+    color: white;
+
+    font-size: clamp(35px, 8vw, 55px);
+    font-weight: 900;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: all 0.25s ease;
+
+    box-shadow:
+        5px 5px 12px rgba(0,0,0,0.35),
+        inset 1px 1px 2px rgba(255,255,255,0.05);
+}
+
+/* Hover animation */
+
+.cell:hover {
+    transform: translateY(-5px) scale(1.03);
+
+    background: linear-gradient(
+        145deg,
+        #263d59,
+        #17253a
+    );
+
+    border-color: rgba(53,200,255,0.5);
+
+    box-shadow:
+        0 0 20px rgba(53,200,255,0.2);
+}
+
+/* X Player */
+
+.cell:has(:not(span)) {
+    user-select: none;
+}
+
+/* X and O colors */
+
+.cell:not(:empty) {
+    animation: pop 0.25s ease;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.7);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* ===== WINNING CELLS ===== */
+
+.cell.win {
+    background: linear-gradient(
+        135deg,
+        #1e9d70,
+        #125c4a
+    );
+
+    border-color: #63ffbd;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 0 20px rgba(99,255,189,0.5),
+        inset 0 0 15px rgba(99,255,189,0.2);
+
+    animation: winGlow 1s infinite alternate;
+}
+
+@keyframes winGlow {
+    from {
+        box-shadow: 0 0 10px #63ffbd;
+    }
+
+    to {
+        box-shadow: 0 0 25px #63ffbd;
+    }
+}
+
+/* ===== RESTART BUTTON ===== */
+
+#restart {
+    margin-top: 20px;
+
+    padding: 15px 35px;
+
+    border: none;
+    border-radius: 50px;
+
+    background: linear-gradient(
+        90deg,
+        #35c8ff,
+        #7c68ff
+    );
+
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px rgba(53,200,255,0.25);
+
+    transition: all 0.3s ease;
+}
+
+#restart:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 12px 35px rgba(53,200,255,0.45);
+}
+
+#restart:active {
+    transform: scale(0.95);
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+
+@media (max-width: 500px) {
+
+    body {
+        padding: 12px;
+    }
+
+    .container {
+        padding: 22px 15px;
+        border-radius: 22px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    h2 {
+        font-size: 15px;
+    }
+
+    .game {
+        gap: 9px;
+        padding: 10px;
+    }
+
+    .cell {
+        border-radius: 12px;
+    }
+
+    #restart {
+        padding: 13px 28px;
+    }
+}
